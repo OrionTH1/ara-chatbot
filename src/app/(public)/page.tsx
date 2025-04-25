@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 function LandingPage() {
   return (
@@ -14,10 +14,18 @@ function LandingPage() {
           </div>
 
           <div className="flex gap-4">
-            <Button className="heading-3">Testar agora</Button>
-            <Button className="heading-3" variant={"outline"}>
+            <Link
+              href="/chat"
+              className="flex justify-center items-center heading-3 bg-brand text-primary-foreground hover:bg-brand/90 h-11 px-5 py-4 rounded-md transition-all"
+            >
+              Testar agora
+            </Link>
+            <Link
+              href={"#about"}
+              className="flex justify-center items-center heading-3 border-2 border-brand bg-transparent hover:bg-brand/90 hover:border-brand/90 h-11 px-5 py-4 rounded-md transition-all "
+            >
               Sobre
-            </Button>
+            </Link>
           </div>
         </div>
 
