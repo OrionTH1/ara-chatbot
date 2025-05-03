@@ -25,9 +25,9 @@ export const getCurrentUser = async () => {
       [Query.equal("accountId", result.$id)]
     );
 
-    if (user.total <= 0) return null;
+    if (user.total <= 0) return { error: null, response: null };
 
-    return user.documents[0];
+    return { error: null, response: user.documents[0] };
   } catch (error) {
     console.error(error);
     return { error: "internal_error", response: null };
