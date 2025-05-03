@@ -100,7 +100,7 @@ function Sidebar({ fullName, email, avatar, chats }: SidebarProps) {
                   <SidebarMenuSub>
                     {chats.map((chat) => (
                       <SidebarMenuSubItem
-                        key={chat.name}
+                        key={chat.$id}
                         className="group/actions"
                       >
                         <SidebarMenuSubButton
