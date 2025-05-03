@@ -30,6 +30,42 @@ export const createChat = async (userId: string, chatName: string) => {
   }
 };
 
+export const deleteChat = async (chatId: string) => {
+  try {
+    const { database } = await createAdminClient();
+
+    await database.deleteDocument(DATABASE_ID!, CHATS_COLLECTION_ID!, chatId);
+
+    revalidatePath("/chat");
+
+    return { error: null, response: null };
+  } catch (error) {
+    console.error(error);
+    return { error: "internal_error", response: null };
+  }
+};
+
+export const updateChatName = async (chatId: string, chatName: string) => {
+  try {
+    const { database } = await createAdminClient();
+    console.log("Update");
+
+    const chat = await database.updateDocument(
+      DATABASE_ID!,
+      CHATS_COLLECTION_ID!,
+      chatId,
+      { name: chatName }
+    );
+
+    revalidatePath("/chat");
+
+    return { error: null, response: chat };
+  } catch (error) {
+    console.error(error);
+    return { error: "internal_error", response: null };
+  }
+};
+
 export const getChats = async (userId: string) => {
   try {
     const { database } = await createAdminClient();

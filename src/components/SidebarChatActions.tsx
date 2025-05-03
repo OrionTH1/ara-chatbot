@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { deleteChat, updateChatName } from "@/lib/actions/chat";
 
 function SidebarChatActions({
   chatName,
@@ -29,7 +30,23 @@ function SidebarChatActions({
   className?: string;
 }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [newChatName, setChatName] = useState(chatName);
   const [action, setAction] = useState<"Delete" | "Update">("Update");
+
+  const handleSubmit = async () => {
+    switch (action) {
+      case "Delete":
+        await deleteChat(chatId);
+        break;
+
+      case "Update":
+        console.log("test");
+
+        await updateChatName(chatId, newChatName);
+        break;
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenu>
@@ -78,7 +95,8 @@ function SidebarChatActions({
                 type="text"
                 placeholder="Type the new chat name"
                 className="bg-secondary-background rounded h-10"
-                defaultValue={chatName}
+                onChange={(e) => setChatName(e.target.value)}
+                defaultValue={newChatName}
               />
             </div>
           )}
@@ -87,7 +105,7 @@ function SidebarChatActions({
           <Button
             variant="outline"
             onClick={() => {
-              // Handle cancel action
+              handleSubmit();
               setIsOpen(false);
             }}
             size={"sm"}
@@ -96,7 +114,7 @@ function SidebarChatActions({
           </Button>
           <Button
             onClick={() => {
-              // Handle delete action
+              handleSubmit();
               setIsOpen(false);
             }}
             size={"sm"}
