@@ -1,18 +1,15 @@
 "use client";
 
-import { Message as MessageType } from "@/lib/ai-model";
 import { useChatStore } from "@/lib/store/chat";
-import { useEffect } from "react";
 import Message from "./Message";
+import { Message as MessageType } from "@/lib/ai-model";
+import { useEffect } from "react";
 
-function MessagesList({ chat }: { chat: MessageType[] }) {
+function MessagesList({ messages }: { messages: MessageType[] }) {
   const chatStore = useChatStore();
-  useEffect(() => {
-    const getMessages = async () => {
-      chatStore.setMessages([...chat]);
-    };
 
-    getMessages();
+  useEffect(() => {
+    chatStore.setMessages(messages);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
