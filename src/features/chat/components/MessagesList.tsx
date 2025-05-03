@@ -1,21 +1,15 @@
 "use client";
 
+import { Message as MessageType } from "@/lib/ai-model";
 import { useChatStore } from "@/lib/store/chat";
-import Message from "./Message";
 import { useEffect } from "react";
-import { getChatMessages } from "@/lib/actions/chat";
+import Message from "./Message";
 
-function MessagesList({ chatId }: { chatId: string }) {
+function MessagesList({ chat }: { chat: MessageType[] }) {
   const chatStore = useChatStore();
   useEffect(() => {
     const getMessages = async () => {
-      const { response } = await getChatMessages(chatId);
-
-      if (!response) {
-        return;
-      }
-
-      chatStore.setMessages([...response]);
+      chatStore.setMessages([...chat]);
     };
 
     getMessages();

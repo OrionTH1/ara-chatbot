@@ -130,6 +130,10 @@
     @apply bg-white/10;
   }
 
+  .shad-active {
+    @apply bg-secondary-background rounded-md;
+  }
+
   /* AuthForm */
   .auth-form {
     @apply flex  max-h-[800px] w-full max-w-[580px] flex-col justify-center transition-all lg:h-full;

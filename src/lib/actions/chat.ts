@@ -93,8 +93,13 @@ export const getChatMessages = async (chatId: string) => {
     );
 
     return { error: null, response: messages };
-  } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    if (error.code === 404) {
+      return { error: "chat_not_found", response: null };
+    }
     console.error(error);
+
     return { error: "internal_error", response: null };
   }
 };
