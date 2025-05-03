@@ -63,8 +63,6 @@ function AuthForm({ type }: { type: FormType }) {
     setIsLoading(true);
     clearErrors();
     try {
-      console.log(values);
-
       switch (type) {
         case "sign-in":
           const session = await createEmailSession(
@@ -75,12 +73,8 @@ function AuthForm({ type }: { type: FormType }) {
 
           if (!session.error) {
             router.push("/chat");
-            console.log("Deu bom");
-
             break;
           }
-
-          console.log("test123");
 
           setError("root", {
             message: session.error.message,
