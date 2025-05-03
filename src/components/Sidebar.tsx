@@ -54,7 +54,6 @@ interface SidebarProps {
 }
 
 function Sidebar({ fullName, email, avatar, chats }: SidebarProps) {
-  const type = useSearchParams().get("type");
   const pathname = usePathname();
   const { open } = useSidebar();
 
@@ -83,10 +82,10 @@ function Sidebar({ fullName, email, avatar, chats }: SidebarProps) {
           <SidebarGroupLabel>Platform</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem
-              className={cn(pathname === "chat/new" && "shad-active")}
+              className={cn(pathname === "/chat" && "shad-active")}
             >
               <SidebarMenuButton tooltip={"New Chat"} asChild>
-                <Link href={"/chat/new"}>
+                <Link href={"/chat"}>
                   <MessageSquarePlus />
                   <span>New Chat</span>
                 </Link>
@@ -116,7 +115,7 @@ function Sidebar({ fullName, email, avatar, chats }: SidebarProps) {
                         <SidebarMenuSubButton
                           asChild
                           className={cn(
-                            type === chat.name.toLowerCase() && "shad-active",
+                            pathname === `/chat/${chat.$id}` && "shad-active",
                             ""
                           )}
                         >
