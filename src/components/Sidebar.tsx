@@ -5,12 +5,9 @@ import Link from "next/link";
 
 import {
   ChevronRight,
-  Ellipsis,
   Folder,
   GalleryVerticalEnd,
   MessageSquarePlus,
-  Pencil,
-  Trash2,
 } from "lucide-react";
 
 import {
@@ -35,15 +32,9 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import SidebarUser from "./SidebarUser";
 import { Models } from "node-appwrite";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
 import SidebarChatActions from "./SidebarChatActions";
 
 interface SidebarProps {
