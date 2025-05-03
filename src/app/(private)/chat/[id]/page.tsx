@@ -11,13 +11,14 @@ async function ChatPage({ params }: SearchParamProps) {
   if (!chats.response) {
     return (
       <div className="flex flex-col h-screen items-center justify-center gap-4">
-        <h1 className="heading-1">Chat not Found</h1>
-        <Link
-          href={"/chat"}
-          className="bg-secondary-background hover:bg-secondary-background/90 transition p-3 text-lg rounded-lg"
-        >
-          Try to create a new
-        </Link>
+        <h1 className="heading-2">
+          Chat not Found.{" "}
+          <span>
+            <Link href={"/chat"} className="text-brand underline">
+              Try creating a new one
+            </Link>
+          </span>
+        </h1>
       </div>
     );
   }
