@@ -3,6 +3,7 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { getChats } from "@/lib/actions/chat";
 import { getCurrentUser } from "@/lib/actions/user";
 import { redirect } from "next/navigation";
+import { Toaster } from "sonner";
 
 export default async function Layout({
   children,
@@ -37,7 +38,7 @@ export default async function Layout({
           <div>{children}</div>
         </main>
 
-        {/* <Toaster /> */}
+        <Toaster />
       </SidebarProvider>
     </div>
   );

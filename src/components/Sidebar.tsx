@@ -112,7 +112,12 @@ function Sidebar({ fullName, email, avatar, chats }: SidebarProps) {
                         >
                           <div className="flex items-center justify-between ">
                             <Link href={`/chat/${chat.$id}`}>
-                              <span>{chat.name}</span>
+                              <span
+                                className="line-clamp-1 text-xs font-semibold"
+                                title={chat.name}
+                              >
+                                {chat.name}
+                              </span>
                             </Link>
                             <SidebarChatActions
                               chatName={chat.name}
