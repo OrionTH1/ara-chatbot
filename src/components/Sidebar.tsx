@@ -3,7 +3,15 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-import { ChevronRight, GalleryVerticalEnd } from "lucide-react";
+import {
+  ChevronRight,
+  Ellipsis,
+  Folder,
+  GalleryVerticalEnd,
+  MessageSquarePlus,
+  Pencil,
+  Trash2,
+} from "lucide-react";
 
 import {
   Sidebar as ShadSidebar,
@@ -28,16 +36,24 @@ import {
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
 import { usePathname, useSearchParams } from "next/navigation";
-import { sidebarData } from "@/constants";
 import SidebarUser from "./SidebarUser";
+import { Models } from "node-appwrite";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import SidebarChatActions from "./SidebarChatActions";
 
 interface SidebarProps {
   fullName: string;
   email: string;
   avatar: string;
+  chats: Models.Document[];
 }
 
-function Sidebar({ fullName, email, avatar }: SidebarProps) {
+function Sidebar({ fullName, email, avatar, chats }: SidebarProps) {
   const type = useSearchParams().get("type");
   const pathname = usePathname();
   const { open } = useSidebar();
@@ -66,57 +82,61 @@ function Sidebar({ fullName, email, avatar }: SidebarProps) {
         <SidebarGroup>
           <SidebarGroupLabel>Platform</SidebarGroupLabel>
           <SidebarMenu>
-            {sidebarData.navMain.map((item) =>
-              item.items ? (
-                <Collapsible
-                  key={item.title}
-                  asChild
-                  defaultOpen={item.isActive}
-                  className="group/collapsible"
-                >
-                  <SidebarMenuItem>
-                    <CollapsibleTrigger asChild>
-                      <SidebarMenuButton tooltip={item.title}>
-                        {item.icon && <item.icon />}
-                        <span>{item.title}</span>
-                        <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
-                      </SidebarMenuButton>
-                    </CollapsibleTrigger>
-                    <CollapsibleContent>
-                      <SidebarMenuSub>
-                        {item.items?.map((subItem) => (
-                          <SidebarMenuSubItem key={subItem.title}>
-                            <SidebarMenuSubButton
-                              asChild
-                              className={cn(
-                                type === subItem.title.toLowerCase() &&
-                                  "shad-active"
-                              )}
-                            >
-                              <Link href={subItem.url}>
-                                <span>{subItem.title}</span>
-                              </Link>
-                            </SidebarMenuSubButton>
-                          </SidebarMenuSubItem>
-                        ))}
-                      </SidebarMenuSub>
-                    </CollapsibleContent>
-                  </SidebarMenuItem>
-                </Collapsible>
-              ) : (
-                <SidebarMenuItem
-                  key={item.title}
-                  className={cn(pathname === item.url && "shad-active")}
-                >
-                  <SidebarMenuButton tooltip={item.title} asChild>
-                    <Link href={item.url}>
-                      {item.icon && <item.icon />}
-                      <span>{item.title}</span>
-                    </Link>
+            <SidebarMenuItem
+              className={cn(pathname === "chat/new" && "shad-active")}
+            >
+              <SidebarMenuButton tooltip={"New Chat"} asChild>
+                <Link href={"/chat/new"}>
+                  <MessageSquarePlus />
+                  <span>New Chat</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+
+            <Collapsible
+              asChild
+              defaultOpen={chats.length > 0}
+              className="group/collapsible"
+            >
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton tooltip={"Chats"}>
+                    <Folder />
+                    <span>Chats</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                   </SidebarMenuButton>
-                </SidebarMenuItem>
-              )
-            )}
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {chats.map((chat) => (
+                      <SidebarMenuSubItem
+                        key={chat.name}
+                        className="group/actions"
+                      >
+                        <SidebarMenuSubButton
+                          asChild
+                          className={cn(
+                            type === chat.name.toLowerCase() && "shad-active",
+                            ""
+                          )}
+                        >
+                          <div className="flex items-center justify-between ">
+                            <Link href={`/chat/${chat.$id}`}>
+                              <span>{chat.name}</span>
+                            </Link>
+                            <SidebarChatActions
+                              chatName={chat.name}
+                              chatId={chat.$id}
+                              className="invisible group-hover/actions:visible cursor-pointer"
+                            />
+                          </div>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
