@@ -10,7 +10,7 @@ import {
 } from "node-appwrite";
 import { cookies } from "next/headers";
 import {
-  SECRET_KEY,
+  APPWRITE_SECRET_KEY,
   NEXT_PUBLIC_APPWRITE_ENDPOINT,
   PROJECT_ID,
 } from "./config";
@@ -42,7 +42,7 @@ export const createAdminClient = async () => {
   const client = new Client()
     .setEndpoint(NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(PROJECT_ID!)
-    .setKey(SECRET_KEY!);
+    .setKey(APPWRITE_SECRET_KEY!);
 
   return {
     get users() {
