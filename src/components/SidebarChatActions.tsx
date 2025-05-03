@@ -19,6 +19,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { deleteChat, updateChatName } from "@/lib/actions/chat";
+import { toast } from "sonner";
 
 function SidebarChatActions({
   chatName,
@@ -33,16 +34,28 @@ function SidebarChatActions({
   const [newChatName, setChatName] = useState(chatName);
   const [action, setAction] = useState<"Delete" | "Update">("Update");
 
-  const handleSubmit = async () => {
+  const handleAction = async () => {
     switch (action) {
       case "Delete":
         await deleteChat(chatId);
+        toast.success("Chat deleted successfully", {
+          style: {
+            background: "var(--popover)",
+            color: "var(--success)",
+            borderColor: "var(--border)",
+          },
+        });
         break;
 
       case "Update":
-        console.log("test");
-
         await updateChatName(chatId, newChatName);
+        toast.success("Chat updated successfully", {
+          style: {
+            background: "var(--popover)",
+            color: "var(--success)",
+            borderColor: "var(--border)",
+          },
+        });
         break;
     }
   };
@@ -105,7 +118,7 @@ function SidebarChatActions({
           <Button
             variant="outline"
             onClick={() => {
-              handleSubmit();
+              handleAction();
               setIsOpen(false);
             }}
             size={"sm"}
@@ -114,7 +127,7 @@ function SidebarChatActions({
           </Button>
           <Button
             onClick={() => {
-              handleSubmit();
+              handleAction();
               setIsOpen(false);
             }}
             size={"sm"}
