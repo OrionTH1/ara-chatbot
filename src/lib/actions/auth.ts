@@ -32,8 +32,6 @@ export const createOAuthAccount = async (path: string) => {
   try {
     const { account } = await createAdminClient();
 
-    console.log(path);
-
     const OAuthURL = await account.createOAuth2Token(
       OAuthProvider.Google,
       `${path}/oauth`,
@@ -54,7 +52,6 @@ export const createOAuthSession = async (userId: string, secret: string) => {
     const session = await account.createSession(userId, secret);
 
     const userAccount = await users.get(session.userId);
-    console.log(userAccount);
 
     await createSession(session, userAccount.name, userAccount.email);
 
