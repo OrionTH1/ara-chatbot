@@ -12,8 +12,9 @@ import { readStreamableValue } from "ai/rsc";
 import { SendHorizonal } from "lucide-react";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -24,10 +25,12 @@ const formSchema = z.object({
 
 function ChatForm({
   newChat,
+  firstQuestion,
   userId,
   chatId,
 }: {
   newChat: boolean;
+  firstQuestion?: string;
   chatId?: string;
   userId?: string;
 }) {
@@ -41,55 +44,61 @@ function ChatForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    try {
-      if (!chatId) {
-        return;
+  const onSubmit = useCallback(
+    async (data: z.infer<typeof formSchema>) => {
+      try {
+        if (!chatId) {
+          return;
+        }
+        setIsLoading(true);
+        form.resetField("message");
+
+        // User Message
+        setMessages([
+          ...history,
+          {
+            content: data.message,
+            role: "user",
+          },
+        ]);
+
+        const userMessage = (await createMessage(data.message, "user", chatId))
+          .response;
+        if (!userMessage) {
+          return;
+        }
+
+        // Model Message
+        const { messages, newMessage } = await createConversation([
+          ...history,
+          userMessage,
+        ]);
+
+        let textContent = "";
+
+        for await (const delta of readStreamableValue(newMessage)) {
+          textContent = `${textContent}${delta}`;
+
+          setMessages([
+            ...messages,
+            { role: "assistant", content: textContent },
+          ]);
+        }
+
+        const modelMessage = (
+          await createMessage(textContent, "assistant", chatId)
+        ).response;
+        if (!modelMessage) {
+          return;
+        }
+      } finally {
+        setIsLoading(false);
       }
-      setIsLoading(true);
-      form.resetField("message");
+    },
+    [chatId, form, history, setMessages]
+  );
 
-      // User Message
-      setMessages([
-        ...history,
-        {
-          content: data.message,
-          role: "user",
-        },
-      ]);
-
-      const userMessage = (await createMessage(data.message, "user", chatId))
-        .response;
-      if (!userMessage) {
-        return;
-      }
-
-      // Model Message
-      const { messages, newMessage } = await createConversation([
-        ...history,
-        userMessage,
-      ]);
-
-      let textContent = "";
-
-      for await (const delta of readStreamableValue(newMessage)) {
-        textContent = `${textContent}${delta}`;
-
-        setMessages([...messages, { role: "assistant", content: textContent }]);
-      }
-
-      const modelMessage = (
-        await createMessage(textContent, "assistant", chatId)
-      ).response;
-      if (!modelMessage) {
-        return;
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const createNewChat = async () => {
+  const createNewChat = async (data: z.infer<typeof formSchema>) => {
     try {
       setIsLoading(true);
       if (!userId) {
@@ -98,7 +107,7 @@ function ChatForm({
 
       form.resetField("message");
 
-      const chat = await createChat(userId, "New Chat");
+      const chat = await createChat(userId, data.message);
 
       if (!chat) {
         // Set Error
@@ -110,6 +119,18 @@ function ChatForm({
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (newChat) {
+      setMessages([]);
+    }
+
+    if (firstQuestion) {
+      onSubmit({ message: firstQuestion });
+      Cookies.remove("chatFirstQuestion");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firstQuestion]);
 
   return (
     <Form {...form}>
@@ -125,7 +146,7 @@ function ChatForm({
               <FormControl>
                 <Input
                   type="text"
-                  className="bg-secondary-background shadow-lg rounded-2xl h-16"
+                  className="bg-secondary-background shadow-lg rounded-2xl h-16 pr-14"
                   disabled={isLoading}
                   placeholder={isLoading ? "" : "Type your message here..."}
                   {...field}

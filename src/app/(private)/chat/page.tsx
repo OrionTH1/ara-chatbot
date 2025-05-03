@@ -2,7 +2,7 @@ import ChatForm from "@/features/chat/components/form/ChatForm";
 import { getCurrentUser } from "@/lib/actions/user";
 import { redirect } from "next/navigation";
 
-async function NewChatPage() {
+async function ChatPage() {
   const currentUser = await getCurrentUser();
   if (!currentUser.response) return redirect("/sign-in");
 
@@ -17,4 +17,4 @@ async function NewChatPage() {
   );
 }
 
-export default NewChatPage;
+export default ChatPage;
