@@ -18,7 +18,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   createAccount,
   createOAuthAccount,
@@ -44,6 +44,7 @@ function AuthForm({ type }: { type: FormType }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
+  const path = usePathname();
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -126,10 +127,13 @@ function AuthForm({ type }: { type: FormType }) {
 
     try {
       const url = window.location.origin;
+      console.log(url);
 
-      const OAuthURL = await createOAuthAccount(url);
+      const OAuthURL = await createOAuthAccount(path);
 
       if (OAuthURL.response) {
+        console.log(OAuthURL.response);
+
         router.push(OAuthURL.response);
       }
     } finally {
