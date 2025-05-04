@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import ChatForm from "@/features/chat/components/form/ChatForm";
 import { getCurrentUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";

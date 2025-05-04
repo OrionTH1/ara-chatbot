@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import ProfileSettingsForm from "@/features/settings/form/UserSettingsForm";
 import { getCurrentUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
