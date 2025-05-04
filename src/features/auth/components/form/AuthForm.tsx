@@ -44,7 +44,6 @@ function AuthForm({ type }: { type: FormType }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  const path = usePathname();
   const formSchema = authFormSchema(type);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
