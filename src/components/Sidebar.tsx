@@ -3,12 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
-import {
-  ChevronRight,
-  Folder,
-  GalleryVerticalEnd,
-  MessageSquarePlus,
-} from "lucide-react";
+import { ChevronRight, Folder, MessageSquarePlus } from "lucide-react";
 
 import {
   Sidebar as ShadSidebar,
@@ -36,6 +31,7 @@ import { usePathname } from "next/navigation";
 import SidebarUser from "./SidebarUser";
 import { Models } from "node-appwrite";
 import SidebarChatActions from "./SidebarChatActions";
+import Image from "next/image";
 
 interface SidebarProps {
   fullName: string;
@@ -56,12 +52,18 @@ function Sidebar({ fullName, email, avatar, chats }: SidebarProps) {
             className={cn("flex justify-between gap-2", !open && "flex-col")}
           >
             <div className="flex gap-2">
-              <div className="flex items-center justify-center rounded-[8px] bg-brand p-2">
-                <GalleryVerticalEnd color="#FFFFFF" size={16} />
+              <div className="flex items-center justify-center rounded-[8px] bg-brand p-1">
+                <Image
+                  src={"/assets/icons/furia.svg"}
+                  width={32}
+                  height={32}
+                  alt="Furia Logo"
+                />
+                {/* < color="#FFFFFF" size={16} /> */}
               </div>
               <div className={cn(open ? "flex flex-col" : "hidden")}>
-                <h1 className="text-sm font-bold">Cloudora</h1>
-                <p className="text-xs">Enterprise</p>
+                <h1 className="text-sm font-bold">Luna</h1>
+                <p className="text-xs">Furia Chat Bot</p>
               </div>
             </div>
             <SidebarTrigger className="size-8" />
