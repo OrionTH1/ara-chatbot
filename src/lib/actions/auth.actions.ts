@@ -4,7 +4,7 @@ import { ID, Models, OAuthProvider } from "node-appwrite";
 import { createAdminClient, createSessionClient } from "../appwrite";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { createUserIfNotExists } from "./user";
+import { createUserIfNotExists } from "./user.actions";
 
 export const createAccount = async (
   fullName: string,

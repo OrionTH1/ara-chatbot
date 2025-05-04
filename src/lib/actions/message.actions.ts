@@ -3,7 +3,7 @@
 import { ID } from "node-appwrite";
 import { createAdminClient } from "../appwrite";
 import { DATABASE_ID, MESSAGES_COLLECTION_ID } from "../appwrite/config";
-import { chatInsertMessage } from "./chat";
+import { chatInsertMessage } from "./chat.actions";
 import { Message } from "../ai-model";
 
 export const createMessage = async (

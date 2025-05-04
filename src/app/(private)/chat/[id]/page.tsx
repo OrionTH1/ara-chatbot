@@ -1,6 +1,6 @@
 import ChatForm from "@/features/chat/components/form/ChatForm";
 import MessagesList from "@/features/chat/components/MessagesList";
-import { getChatMessages } from "@/lib/actions/chat";
+import { getChatMessages } from "@/lib/actions/chat.actions";
 import { cookies } from "next/headers";
 import Link from "next/link";
 

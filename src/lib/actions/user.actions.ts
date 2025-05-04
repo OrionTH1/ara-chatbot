@@ -98,6 +98,8 @@ export const updateUserAvatar = async (
   try {
     const { storage, database } = await createAdminClient();
 
+    console.log(BUCKET_ID);
+
     const inputFile = InputFile.fromBuffer(file, file.name);
     const bucketFile = await storage.createFile(
       BUCKET_ID!,

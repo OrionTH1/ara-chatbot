@@ -23,7 +23,7 @@ import {
   createAccount,
   createOAuthAccount,
   createEmailSession,
-} from "@/lib/actions/auth";
+} from "@/lib/actions/auth.actions";
 type FormType = "sign-in" | "sign-up";
 
 const authFormSchema = (formType: FormType) => {

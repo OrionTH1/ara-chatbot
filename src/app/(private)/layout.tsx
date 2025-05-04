@@ -1,7 +1,7 @@
 import Sidebar from "@/components/Sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { getChats } from "@/lib/actions/chat";
-import { getCurrentUser } from "@/lib/actions/user";
+import { getChats } from "@/lib/actions/chat.actions";
+import { getCurrentUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 import { Toaster } from "sonner";
 
@@ -10,18 +10,18 @@ export default async function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const currentUser = await getCurrentUser();
-  if (!currentUser.response) return redirect("/sign-in");
+  const { response: currentUser } = await getCurrentUser();
+  if (!currentUser) return redirect("/sign-in");
 
-  const chats = await getChats(currentUser.response.$id);
+  const chats = await getChats(currentUser.$id);
 
   return (
     <div>
       <SidebarProvider>
         <Sidebar
-          avatar={"/placeholder.png"}
-          email={"email@gmail.com"}
-          fullName={"Matheus"}
+          avatar={currentUser.avatar}
+          email={currentUser.email}
+          fullName={currentUser.fullName}
           chats={chats.response?.documents || []}
         />
 

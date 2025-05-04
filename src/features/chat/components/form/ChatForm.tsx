@@ -3,8 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { createChat } from "@/lib/actions/chat";
-import { createMessage } from "@/lib/actions/message";
+import { createChat } from "@/lib/actions/chat.actions";
 import { createConversation } from "@/lib/ai-model";
 import { useChatStore } from "@/lib/store/chat";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,6 +15,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { z } from "zod";
+import { createMessage } from "@/lib/actions/message.actions";
 
 const formSchema = z.object({
   message: z.string().min(1, {

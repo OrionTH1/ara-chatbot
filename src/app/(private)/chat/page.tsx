@@ -1,5 +1,5 @@
 import ChatForm from "@/features/chat/components/form/ChatForm";
-import { getCurrentUser } from "@/lib/actions/user";
+import { getCurrentUser } from "@/lib/actions/user.actions";
 import { redirect } from "next/navigation";
 
 async function ChatPage() {

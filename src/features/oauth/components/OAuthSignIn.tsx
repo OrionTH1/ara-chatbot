@@ -1,6 +1,6 @@
 "use client";
 
-import { createOAuthSession } from "@/lib/actions/auth";
+import { createOAuthSession } from "@/lib/actions/auth.actions";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 

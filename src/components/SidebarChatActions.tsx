@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { deleteChat, updateChatName } from "@/lib/actions/chat";
+import { deleteChat, updateChatName } from "@/lib/actions/chat.actions";
 import { toast } from "sonner";
 
 function SidebarChatActions({
