@@ -18,7 +18,7 @@ import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   createAccount,
   createOAuthAccount,
