@@ -44,22 +44,27 @@ export async function createConversation(history: Message[]) {
     ],
   });
 
-  (async () => {
-    const { textStream } = await streamText({
-      model: model,
-      system: instructions,
+  try {
+    (async () => {
+      const { textStream } = await streamText({
+        model: model,
+        system: instructions,
+        messages: history,
+      });
+      console.log(textStream);
+
+      for await (const text of textStream) {
+        stream.update(text);
+      }
+
+      stream.done();
+    })().then(() => {});
+
+    return {
       messages: history,
-    });
-
-    for await (const text of textStream) {
-      stream.update(text);
-    }
-
-    stream.done();
-  })().then(() => {});
-
-  return {
-    messages: history,
-    newMessage: stream.value,
-  };
+      newMessage: stream.value,
+    };
+  } catch (error) {
+    console.error(error);
+  }
 }
