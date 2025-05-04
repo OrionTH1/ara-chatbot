@@ -129,13 +129,17 @@ function AuthForm({ type }: { type: FormType }) {
       const url = window.location.origin;
       console.log(url);
 
-      const OAuthURL = await createOAuthAccount(path);
+      const OAuthURL = await createOAuthAccount(url);
 
-      if (OAuthURL.response) {
-        console.log(OAuthURL.response);
-
-        router.push(OAuthURL.response);
+      console.log(OAuthURL.response);
+      if (!OAuthURL.response) {
+        setError("root", {
+          message: "Something went wrong, please try again.",
+        });
+        return;
       }
+
+      router.push(OAuthURL.response);
     } finally {
       setIsLoading(false);
     }
