@@ -14,14 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
-import {
-  BadgeCheck,
-  BadgePercent,
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Settings,
-} from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 
@@ -75,31 +68,6 @@ function SidebarUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Link
-                  href={`/order?name=${user.name}`}
-                  className="flex w-full items-center gap-2"
-                >
-                  <BadgePercent size={16} />
-                  Change your Plan
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Link
-                  href={"/cloud/settings#user-settings"}
-                  className="flex w-full items-center gap-2"
-                >
-                  <BadgeCheck size={16} />
-                  Account
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
               <DropdownMenuItem>
                 <Link
                   href={"/cloud/settings"}
