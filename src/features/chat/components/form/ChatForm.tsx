@@ -134,7 +134,7 @@ function ChatForm({
       Cookies.remove("chatFirstQuestion");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [firstQuestion]);
+  }, []);
 
   return (
     <Form {...form}>
