@@ -13,7 +13,6 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Cookies from "js-cookie";
 import { z } from "zod";
 import { createMessage } from "@/lib/actions/message.actions";
 
@@ -25,16 +24,19 @@ const formSchema = z.object({
 
 function ChatForm({
   newChat,
-  firstQuestion,
   userId,
   chatId,
 }: {
   newChat: boolean;
-  firstQuestion?: string;
   chatId?: string;
   userId?: string;
 }) {
-  const { setMessages, messages: history } = useChatStore();
+  const {
+    setMessages,
+    messages: history,
+    firstMessage,
+    setFirstMessage,
+  } = useChatStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -112,6 +114,7 @@ function ChatForm({
       form.resetField("message");
 
       const chat = await createChat(userId, data.message);
+      setFirstMessage(data.message);
 
       if (!chat) {
         console.error("Error creating chat");
@@ -129,10 +132,10 @@ function ChatForm({
       setMessages([]);
     }
 
-    if (firstQuestion) {
-      onSubmit({ message: firstQuestion });
-      Cookies.remove("chatFirstQuestion");
-    }
+    if (!firstMessage) return;
+
+    onSubmit({ message: firstMessage });
+    setFirstMessage("");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -3,12 +3,10 @@ export const dynamic = "force-dynamic";
 import ChatForm from "@/features/chat/components/form/ChatForm";
 import MessagesList from "@/features/chat/components/MessagesList";
 import { getChatMessages } from "@/lib/actions/chat.actions";
-import { cookies } from "next/headers";
 import Link from "next/link";
 
 async function ChatPage({ params }: SearchParamProps) {
   const chatId = (await params)?.id;
-  const chatFirstQuestion = (await cookies()).get("chatFirstQuestion")?.value;
 
   const messages = await getChatMessages(chatId);
 
@@ -37,11 +35,7 @@ async function ChatPage({ params }: SearchParamProps) {
         <MessagesList messages={messages.response} />
 
         <div className="w-full h-4 absolute top-[calc(100vh-208px)] bg-gradient-to-t from-background to-background/0 z-10 pointer-events-none" />
-        <ChatForm
-          newChat={false}
-          firstQuestion={chatFirstQuestion}
-          chatId={chatId}
-        />
+        <ChatForm newChat={false} chatId={chatId} />
       </div>
     </div>
   );
