@@ -5,12 +5,10 @@ import { createAdminClient } from "../appwrite";
 import { CHATS_COLLECTION_ID, DATABASE_ID } from "../appwrite/config";
 import { revalidatePath } from "next/cache";
 import { generateChatName, Message } from "../ai-model";
-import { cookies } from "next/headers";
 
 export const createChat = async (userId: string, firstQuestion: string) => {
   try {
     const { database } = await createAdminClient();
-    (await cookies()).set("chatFirstQuestion", firstQuestion);
 
     const chatName = await generateChatName(firstQuestion);
 

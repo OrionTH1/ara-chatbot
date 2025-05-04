@@ -51,7 +51,6 @@ export async function createConversation(history: Message[]) {
         system: instructions,
         messages: history,
       });
-      console.log(textStream);
 
       for await (const text of textStream) {
         stream.update(text);
