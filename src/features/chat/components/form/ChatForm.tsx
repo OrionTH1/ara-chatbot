@@ -48,6 +48,7 @@ function ChatForm({
     async (data: z.infer<typeof formSchema>) => {
       try {
         if (!chatId) {
+          console.error("Chat ID is required");
           return;
         }
         setIsLoading(true);
@@ -89,6 +90,7 @@ function ChatForm({
           await createMessage(textContent, "assistant", chatId)
         ).response;
         if (!modelMessage) {
+          console.error("Error creating message");
           return;
         }
       } finally {
@@ -102,6 +104,7 @@ function ChatForm({
     try {
       setIsLoading(true);
       if (!userId) {
+        console.error("User ID is required");
         return;
       }
 
@@ -110,7 +113,7 @@ function ChatForm({
       const chat = await createChat(userId, data.message);
 
       if (!chat) {
-        // Set Error
+        console.error("Error creating chat");
         return;
       }
 
