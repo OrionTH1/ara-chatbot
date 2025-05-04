@@ -70,7 +70,7 @@ function SidebarUser({
             <DropdownMenuGroup>
               <DropdownMenuItem>
                 <Link
-                  href={"/cloud/settings"}
+                  href={"/settings"}
                   className="flex w-full items-center gap-2"
                 >
                   <Settings size={16} />
