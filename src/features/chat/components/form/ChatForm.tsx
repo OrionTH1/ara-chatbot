@@ -70,18 +70,19 @@ function ChatForm({
         }
 
         // Model Message
-        const { messages, newMessage } = await createConversation([
-          ...history,
-          userMessage,
-        ]);
+        const response = await createConversation([...history, userMessage]);
 
+        if (!response) {
+          console.error("Error creating conversation");
+          return;
+        }
         let textContent = "";
 
-        for await (const delta of readStreamableValue(newMessage)) {
+        for await (const delta of readStreamableValue(response.newMessage)) {
           textContent = `${textContent}${delta}`;
 
           setMessages([
-            ...messages,
+            ...response.messages,
             { role: "assistant", content: textContent },
           ]);
         }
