@@ -1,34 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<a id="readme-top"></a>
 
-## Getting Started
 
-First, run the development server:
+<div align="center">
+  <br />
+  <img src="https://github.com/user-attachments/assets/f8eaaefd-5607-4ea6-9097-52210db4f9b4" alt="Project Banner">
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/matheusemanoeldev/)
+[![X](https://img.shields.io/badge/X-000?style=for-the-badge&logo=x)](https://x.com/OrionTH1)
+[![Portfolio](https://img.shields.io/badge/Portfolio-FF5722?style=for-the-badge&logo=todoist&logoColor=white)](https://portfólio.com)
+<br/>
+<a href="https://luna-chatbot.vercel.app/"><strong>View Demo »</strong></a>  
+</div>
 
-## Learn More
+<br/>
+<br/>
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Tech Stack</a></li>
+      </ul>
+      <ul>
+        <li><a href="#features">Features</a></li>
+      </ul>
+    </li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
+</details>
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<!-- ABOUT THE PROJECT -->
+## <a name="about-the-project">📢 About The Project</a>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Luna** is an **AI-powered chatbot** built to answer questions exclusively about **FURIA**, one of Brazil’s leading esports organizations.
 
-## Deploy on Vercel
+From **historical facts** and **team achievements** to **fun facts**, Luna delivers **quick** and **engaging responses** for fans and new visitors alike.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## <a name="built-with">⚙️ Tech Stack</a>
+
+- **React** 
+- **Next.js** 
+- **React Hook Form** 
+- **Appwrite**
+- **TailwindCSS + shadcn/ui**
+- **Ai Vercel SDK**
+- **Gemini API**
+
+## <a name="features">🔋 Features</a>
+
+👉 **User authentication** via email/password and Google OAuth
+
+👉 **Form validation** using React Hook Form + Zod
+
+👉 **Chat history** handling
+
+👉 Clean and responsive **UI using TailwindCSS + shadcn/ui**
+
+👉 Developed using **Next.js**, **Appwrite** (backend as a service), and **TypeScript**
+
+👉 **Complete Responsiveness**: The application works seamlessly on all device types and screen sizes.
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [ ] Create password change feature
+
+
+## Contact
+
+Matheus Emanoel - [Linkedin](https://www.linkedin.com/in/matheusemanoeldev/) - [Twitter](https://twitter.com/OrionTH1) <br/>
+Email: buss.matheusemanoel@gmail.com<br/>
+Project Link: [Demo](https://luna-chatbot.vercel.app/) - [Github](https://github.com/OrionTH1/furia-chatbot)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
